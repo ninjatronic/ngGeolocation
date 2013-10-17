@@ -1,0 +1,12 @@
+{
+    "name": "ngGeolocation",
+    "version": "0.0.1",
+    "main": ["ngGeolocation.js", "ngGeolocation.min.js"],
+    "dependencies": {
+        "angular": ">= 1.0.8"
+    },
+    "devDependencies": {
+        "angular": ">= 1.0.8",
+        "angular-mocks": ">= 1.0.8"
+    }
+}

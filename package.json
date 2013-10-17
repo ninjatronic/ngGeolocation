@@ -1,0 +1,29 @@
+{
+    "name": "ngGeolocation",
+    "version": "0.0.1",
+    "author": "Ninjatronic",
+    "description": "AngularJS support for HTML5 Geolocation",
+    "contributors": [
+        {
+            "name": "Pete Martin",
+            "email": "pete@ninjatronic.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ninjatronic/ngGeolocation.git"
+    },
+    "devDependencies": {
+        "grunt": "",
+        "grunt-cli": "",
+        "phantom": "",
+        "phantomjs": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-watch": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-uglify": "",
+        "grunt-notify": "",
+        "grunt-strip": "",
+        "grunt-karma": ""
+    }
+}
