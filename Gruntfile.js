@@ -76,5 +76,5 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jshint', 'karma:jasmine']);
     grunt.registerTask('build', ['concat', 'uglify:src']);
 
-    grunt.registerTask('default', ['watch:hint']);
+    grunt.registerTask('default', ['watch:test']);
 };
