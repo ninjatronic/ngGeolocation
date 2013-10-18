@@ -33,8 +33,8 @@ angular
     .module('myApp', ['ngGeolocation'])
     .controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation, $scope) {
         /*
-         * getCurrentPosition works in the same way as HTML5 navigator.getCurrentPosition. Takes an optional
-         * options object and returns a promise
+         * getCurrentPosition works in the same way as HTML5 navigator.getCurrentPosition.
+         * Takes an optional options object and returns a promise
          */
          $scope.myPosition = $geolocation.getCurrentPosition({
             timeout: 60000
