@@ -4,6 +4,8 @@
 
 AngularJS support for [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-API/)
 
+[API Reference](https://github.com/ninjatronic/ngGeolocation/wiki/API-Reference)
+
 ## Installation
 
 ### Bower
@@ -59,8 +61,6 @@ angular
         $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
     }]);
 ```
-
-[API Reference](https://github.com/ninjatronic/ngGeolocation/wiki/API-Reference)
 
 ## Development
 
