@@ -1,8 +1,10 @@
 # ngGeolocation
 
+###### AngularJS support for [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-API/)
+
 [![Build Status](https://travis-ci.org/ninjatronic/ngGeolocation.png)](https://travis-ci.org/ninjatronic/ngGeolocation)
 
-AngularJS support for [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-API/)
+**ngGeolocation** provides AngularJS support for the [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-API/). It aims to provide a quick and easy way to consume geolocation information made available by modern browsers and HTML5 in AngularJS apps wtihout having to write custom SDK wrapping code. Everything exposed by the `$geolocation` service lives within the digest cycle, so there is no need to use `$scope.$apply()` in your controllers when consuming the service. **ngGeolocation** goes one step further than wrapping the HTML5 API calls and provides a property that can be `$watch`ed by your controllers which will always contain the latest position data available through the browser.
 
 [API Reference](https://github.com/ninjatronic/ngGeolocation/wiki/API-Reference)
 
@@ -12,7 +14,7 @@ AngularJS support for [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-A
 
 The bower package name is `ngGeolocation`.
 
-To add it to your `bower.json`...
+#### via `bower.json`
 
 ```javascript
 {
@@ -22,11 +24,15 @@ To add it to your `bower.json`...
 }
 ```
 
-To install from the command line...
+#### via CLI
 
 ```
 bower install ngGeolocation
 ```
+
+### Manual
+
+Download the [minified](https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.min.js) or [unminified](https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.js) source.
 
 ## Usage
 
