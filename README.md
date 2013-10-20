@@ -42,13 +42,32 @@ angular
     }]);
 ```
 
+The `$geolocation` service can expose a property `location` whose value reflects the current position. To enable this feature a watch must be created using `watchPosition`. This method takes a `PositionOptions` object in the same manner as `getCurrentPosition`. There is no return value.
+
+While this watch is active the value of the property `location` is periodically updated with the latest geolocatopm result. If an error has occurred the code and message are available via `$geolocation.position.error`.
+
+The current watch can be cancelled using `clearWatch`.
+
+```javascript
+angular
+    .module('myApp', ['ngGeolocation'])
+    .controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation. $scope) {
+        $geolocation.watchPosition({
+            timeout: 60000,
+            maximumAge: 250,
+            enableHighAccuracy: true
+        };
+        $scope.myCoords = $geolocation.position.coords; // this is regularly updated
+        $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
+    }]);
+```
+
 ## Development
 
 This project uses Grunt for tooling. The toolbelt dependencies are managed by Grunt and the production code dependencies are managed by Bower. Fork the code and clone it into your workspace, then...
 
 ```
 npm install
-cd src
 bower install --dev
 ```
 

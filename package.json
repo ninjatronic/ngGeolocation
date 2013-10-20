@@ -14,6 +14,7 @@
         "url": "https://github.com/ninjatronic/ngGeolocation.git"
     },
     "devDependencies": {
+        "bower": "",
         "grunt": "",
         "grunt-cli": "",
         "phantom": "",
