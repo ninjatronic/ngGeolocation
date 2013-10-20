@@ -1,5 +1,7 @@
 # ngGeolocation
 
+[![Build Status](https://travis-ci.org/ninjatronic/ngGeolocation.png)](https://travis-ci.org/ninjatronic/ngGeolocation)
+
 AngularJS support for HTML5 Geolocation
 
 ## Installation
