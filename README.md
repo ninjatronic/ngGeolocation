@@ -19,7 +19,7 @@ The bower package name is `ngGeolocation`.
 ```javascript
 {
     "dependencies": {
-        "ngGeolocation": ">=0.0.1"
+        "ngGeolocation": ">=0.0.2"
     }
 }
 ```
@@ -30,9 +30,21 @@ The bower package name is `ngGeolocation`.
 bower install ngGeolocation
 ```
 
+Include the installed scripts in your html...
+
+```html
+<script src="bower_components/ngGeolocation.min.js"/>
+```
+
 ### Manual
 
 Download the [minified](https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.min.js) or [unminified](https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.js) source.
+
+Include the scripts in your html...
+
+```html
+<script src="lib/ngGeolocation.min.js"/>
+```
 
 ## Usage
 
