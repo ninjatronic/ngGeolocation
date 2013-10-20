@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ninjatronic/ngGeolocation.png)](https://travis-ci.org/ninjatronic/ngGeolocation)
 
-AngularJS support for HTML5 Geolocation
+AngularJS support for [HTML5 Geolocation API](http://www.w3.org/TR/geolocation-API/)
 
 ## Installation
 
@@ -34,10 +34,6 @@ Make sure your app depends on the `ngGeolocation` module. Geolocation methods ar
 angular
     .module('myApp', ['ngGeolocation'])
     .controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation, $scope) {
-        /*
-         * getCurrentPosition works in the same way as HTML5 navigator.getCurrentPosition.
-         * Takes an optional options object and returns a promise
-         */
          $scope.myPosition = $geolocation.getCurrentPosition({
             timeout: 60000
          });
@@ -63,6 +59,37 @@ angular
         $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
     }]);
 ```
+
+## API Reference
+
+### $geolocation.getCurrentPosition(options)
+
+Asynchronously attempts to obtain the current location of the device.
+
+#### Parameters
+
+**options** - A [PositionOptions](http://www.w3.org/TR/geolocation-API/#position_options_interface) object
+
+#### Returns
+
+A promise, resolved with a [Position](http://www.w3.org/TR/geolocation-API/#position_interface) object or rejected with a [PositionError](http://www.w3.org/TR/geolocation-API/#position_error_interface) object.
+
+### $geolocation.watchPosition(options)
+
+Asynchronously begins a watch operation which monitors the position of the device and update `$geolocation.position` every time this position changes. If a watch operation is already in progress, this method does nothing.
+
+#### Parameters
+
+**options** - A [PositionOptions](http://www.w3.org/TR/geolocation-API/#position_options_interface) object
+
+
+### $geolocation.cancelWatch()
+
+Cancels the current watch operation. If there is no current watch operation this method does nothing.
+
+### $geolocation.position
+
+This property is kept up to date if there is a watch operation in progress. If the last update was successful then it is populated with the most recently available [Position](http://www.w3.org/TR/geolocation-API/#position_interface). If the last update was not successfull `$geolocation.position.error` is populated with the relevant [PositionError](http://www.w3.org/TR/geolocation-API/#position_error_interface) object.
 
 ## Development
 
