@@ -1,6 +1,7 @@
 describe('$geolocation', function() {
     var $geolocation;
     var $rootScope;
+    var $window;
 
     beforeEach(function() {
         angular.module('test',[]);
@@ -8,6 +9,7 @@ describe('$geolocation', function() {
         inject(function($injector) {
             $geolocation = $injector.get('$geolocation');
             $rootScope = $injector.get('$rootScope');
+            $window = $injector.get('$window');
         });
     });
 
@@ -16,74 +18,57 @@ describe('$geolocation', function() {
     });
 
     describe('getCurrentPosition', function() {
+        var successCallback;
+        var errorCallback;
+        var optionsObj;
+
+        beforeEach(function() {
+            $window.navigator.geolocation = {
+                getCurrentPosition: function(success, error, options) {}
+            }
+            spyOn($window.navigator.geolocation, 'getCurrentPosition')
+                .andCallFake(function(success, error, options) {
+                    successCallback = success;
+                    errorCallback = error;
+                    optionsObj = options;
+                });
+        });
 
         it('should be defined', function() {
             expect($geolocation.getCurrentPosition).toBeDefined();
         });
 
         it('should pass along the options object', function() {
-            var result = null;
-            var expected = {
-                badger: 'goat'
-            };
-
-            spyOn(navigator.geolocation, 'getCurrentPosition')
-                .andCallFake(function(success, error, options) {
-                    result = options;
-                });
-
+            var expected = {badger: 'goat'};
             $geolocation.getCurrentPosition(expected);
-
-            expect(result).toBe(expected);
+            expect(optionsObj).toBe(expected);
         });
 
         it('should resolve the promise upon success', function() {
-            var callback = null;
             var result = null;
             var expected = {
                 coords: {},
                 timestamp: {}
             };
-
-            spyOn(navigator.geolocation, 'getCurrentPosition')
-                .andCallFake(function(success, error, options) {
-                    callback = success;
-                });
-
             $geolocation
                 .getCurrentPosition()
-                .then(function(position) {
-                    result = position;
-                });
-
-            callback(expected);
+                .then(function(position) { result = position; });
+            successCallback(expected);
             $rootScope.$apply();
-
             expect(result).toBe(expected);
         });
 
         it('should reject the promise upon error', function() {
-            var callback = null;
             var result = null;
             var expected = {
                 code: {},
                 message: {}
             };
-
-            spyOn(navigator.geolocation, 'getCurrentPosition')
-                .andCallFake(function(success, error, options) {
-                    callback = error;
-                });
-
             $geolocation
                 .getCurrentPosition()
-                .then(function() {}, function(error) {
-                    result = error;
-                });
-
-            callback(expected);
+                .then(function() {}, function(error) { result = error; });
+            errorCallback(expected);
             $rootScope.$apply();
-
             expect(result).toBe(expected);
         });
     });

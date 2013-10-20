@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            all: ['Gruntfile.js', 'dev/src/js/**/*.js'],
+            all: ['Gruntfile.js', '<%= pkg.name %>.js'],
             options: {
                 bitwise: true,
                 curly: true,
@@ -38,14 +38,14 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             dist: {
-                src: ['src/<%= pkg.name %>.js'],
-                dest: 'src/<%= pkg.name %>.min.js'
+                src: ['<%= pkg.name %>.js'],
+                dest: '<%= pkg.name %>.min.js'
             }
         },
         uglify: {
             src: {
                 files: {
-                    'src/<%= pkg.name %>.min.js': ['src/<%= pkg.name %>.min.js']
+                    '<%= pkg.name %>.min.js': ['<%= pkg.name %>.min.js']
                 }
             }
         },
@@ -56,11 +56,11 @@ module.exports = function(grunt) {
         },
         watch: {
             hint: {
-                files: ['tst/**/*.*', 'src/**/*.*'],
+                files: ['<%= pkg.name %>.js', '<%= pkg.name %>.test.js','jasmine.conf.js'],
                 tasks: ['jshint']
             },
             test: {
-                files: ['tst/**/*.*', 'src/**/*.*'],
+                files: ['<%= pkg.name %>.js', '<%= pkg.name %>.test.js','jasmine.conf.js'],
                 tasks: ['jshint', 'karma:jasmine']
             }
         }
@@ -69,6 +69,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-strip');

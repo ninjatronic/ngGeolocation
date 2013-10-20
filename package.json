@@ -1,6 +1,6 @@
 {
     "name": "ngGeolocation",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "Ninjatronic",
     "description": "AngularJS support for HTML5 Geolocation",
     "contributors": [
