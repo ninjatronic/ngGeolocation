@@ -60,36 +60,7 @@ angular
     }]);
 ```
 
-## API Reference
-
-### $geolocation.getCurrentPosition(options)
-
-Asynchronously attempts to obtain the current location of the device.
-
-#### Parameters
-
-**options** - A [PositionOptions](http://www.w3.org/TR/geolocation-API/#position_options_interface) object
-
-#### Returns
-
-A promise, resolved with a [Position](http://www.w3.org/TR/geolocation-API/#position_interface) object or rejected with a [PositionError](http://www.w3.org/TR/geolocation-API/#position_error_interface) object.
-
-### $geolocation.watchPosition(options)
-
-Asynchronously begins a watch operation which monitors the position of the device and update `$geolocation.position` every time this position changes. If a watch operation is already in progress, this method does nothing.
-
-#### Parameters
-
-**options** - A [PositionOptions](http://www.w3.org/TR/geolocation-API/#position_options_interface) object
-
-
-### $geolocation.cancelWatch()
-
-Cancels the current watch operation. If there is no current watch operation this method does nothing.
-
-### $geolocation.position
-
-This property is kept up to date if there is a watch operation in progress. If the last update was successful then it is populated with the most recently available [Position](http://www.w3.org/TR/geolocation-API/#position_interface). If the last update was not successfull `$geolocation.position.error` is populated with the relevant [PositionError](http://www.w3.org/TR/geolocation-API/#position_error_interface) object.
+[API Reference](https://github.com/ninjatronic/ngGeolocation/wiki/API-Reference)
 
 ## Development
 
