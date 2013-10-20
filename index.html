@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="ngGeolocation : AngularJS support for HTML5 Geolocation API" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>ngGeolocation</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ninjatronic/ngGeolocation">View on GitHub</a>
+
+          <h1 id="project_title">ngGeolocation</h1>
+          <h2 id="project_tagline">AngularJS support for HTML5 Geolocation API</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ninjatronic/ngGeolocation/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ninjatronic/ngGeolocation/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><strong>ngGeolocation</strong> provides AngularJS support for the <a href="http://www.w3.org/TR/geolocation-API/">HTML5 Geolocation API</a>. It aims to provide a quick and easy way to consume geolocation information made available by modern browsers and HTML5 in AngularJS apps wtihout having to write custom SDK wrapping code. Everything exposed by the <code>$geolocation</code> service lives within the digest cycle, so there is no need to use <code>$scope.$apply()</code> in your controllers when consuming the service. <strong>ngGeolocation</strong> goes one step further than wrapping the HTML5 API calls and provides a property that can be <code>$watch</code>ed by your controllers which will always contain the latest position data available through the browser.</p>
+
+<p><a href="https://github.com/ninjatronic/ngGeolocation/wiki/API-Reference">API Reference</a></p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a name="bower" class="anchor" href="#bower"><span class="octicon octicon-link"></span></a>Bower</h3>
+
+<p>The bower package name is <code>ngGeolocation</code>.</p>
+
+<h4>
+<a name="via-bowerjson" class="anchor" href="#via-bowerjson"><span class="octicon octicon-link"></span></a>via <code>bower.json</code>
+</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="p">{</span>
+    <span class="s2">"dependencies"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"ngGeolocation"</span><span class="o">:</span> <span class="s2">"&gt;=0.0.1"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="via-cli" class="anchor" href="#via-cli"><span class="octicon octicon-link"></span></a>via CLI</h4>
+
+<pre><code>bower install ngGeolocation
+</code></pre>
+
+<h3>
+<a name="manual" class="anchor" href="#manual"><span class="octicon octicon-link"></span></a>Manual</h3>
+
+<p>Download the <a href="https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.min.js">minified</a> or <a href="https://github.com/ninjatronic/ngGeolocation/blob/v0.0.2/ngGeolocation.js">unminified</a> source.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Make sure your app depends on the <code>ngGeolocation</code> module. Geolocation methods are available through the <code>$geolocation</code> service.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">angular</span>
+    <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngGeolocation'</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'geolocCtrl'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'$geolocation'</span><span class="p">,</span> <span class="s1">'$scope'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$geolocation</span><span class="p">,</span> <span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nx">$scope</span><span class="p">.</span><span class="nx">myPosition</span> <span class="o">=</span> <span class="nx">$geolocation</span><span class="p">.</span><span class="nx">getCurrentPosition</span><span class="p">({</span>
+            <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span>
+         <span class="p">});</span>
+    <span class="p">}]);</span>
+</pre></div>
+
+<p>The <code>$geolocation</code> service can expose a property <code>location</code> whose value reflects the current position. To enable this feature a watch must be created using <code>watchPosition</code>. This method takes a <code>PositionOptions</code> object in the same manner as <code>getCurrentPosition</code>. There is no return value.</p>
+
+<p>While this watch is active the value of the property <code>location</code> is periodically updated with the latest geolocatopm result. If an error has occurred the code and message are available via <code>$geolocation.position.error</code>.</p>
+
+<p>The current watch can be cancelled using <code>clearWatch</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">angular</span>
+    <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngGeolocation'</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'geolocCtrl'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'$geolocation'</span><span class="p">,</span> <span class="s1">'$scope'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$geolocation</span><span class="p">.</span> <span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$geolocation</span><span class="p">.</span><span class="nx">watchPosition</span><span class="p">({</span>
+            <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+            <span class="nx">maximumAge</span><span class="o">:</span> <span class="mi">250</span><span class="p">,</span>
+            <span class="nx">enableHighAccuracy</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">};</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">myCoords</span> <span class="o">=</span> <span class="nx">$geolocation</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">coords</span><span class="p">;</span> <span class="c1">// this is regularly updated</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">myError</span> <span class="o">=</span> <span class="nx">$geolocation</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">error</span><span class="p">;</span> <span class="c1">// this becomes truthy, and has 'code' and 'message' if an error occurs</span>
+    <span class="p">}]);</span>
+</pre></div>
+
+<h2>
+<a name="development" class="anchor" href="#development"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p>This project uses Grunt for tooling. The toolbelt dependencies are managed by Grunt and the production code dependencies are managed by Bower. Fork the code and clone it into your workspace, then...</p>
+
+<pre><code>npm install
+bower install --dev
+</code></pre>
+
+<p>Tests can be run manually with <code>grunt test</code> or automatically on changes with <code>grunt</code>.</p>
+
+<p>If you wish to submit a pull request or an issue please include a test that demonstrates your addition.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">ngGeolocation maintained by <a href="https://github.com/ninjatronic">ninjatronic</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
