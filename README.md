@@ -85,7 +85,6 @@ angular
 This project uses Grunt for tooling. The toolbelt dependencies are managed by NPM and the production code dependencies are managed by Bower. Fork the code and clone it into your workspace, then...
 
 ```
-git clone git://github.com/ninjatronic/ngGeolocation.git
 npm install
 bower install --dev
 ```
