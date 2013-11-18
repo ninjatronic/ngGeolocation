@@ -62,7 +62,7 @@ angular
 
 The `$geolocation` service can expose a property `location` whose value reflects the current position. To enable this feature a watch must be created using `watchPosition`. This method takes a `PositionOptions` object in the same manner as `getCurrentPosition`. There is no return value.
 
-While this watch is active the value of the property `location` is periodically updated with the latest geolocatopm result. If an error has occurred the code and message are available via `$geolocation.position.error`.
+While this watch is active the value of the property `location` is periodically updated with the latest geolocation result. If an error has occurred the code and message are available via `$geolocation.position.error`.
 
 The current watch can be cancelled using `clearWatch`.
 
