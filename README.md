@@ -69,12 +69,12 @@ The current watch can be cancelled using `clearWatch`.
 ```javascript
 angular
     .module('myApp', ['ngGeolocation'])
-    .controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation. $scope) {
+    .controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation, $scope) {
         $geolocation.watchPosition({
             timeout: 60000,
             maximumAge: 250,
             enableHighAccuracy: true
-        };
+        });
         $scope.myCoords = $geolocation.position.coords; // this is regularly updated
         $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
     }]);
