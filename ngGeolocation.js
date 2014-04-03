@@ -39,11 +39,13 @@ angular
                             function(position) {
                                 $rootScope.$apply(function() {
                                     retVal.position = position;
+                                    $rootScope.$broadcast('$geolocation.position.changed', position);
                                 });
                             },
                             function(error) {
                                 $rootScope.$apply(function() {
                                     retVal.position = {error: error};
+                                    $rootScope.$broadcast('$geolocation.position.error', error);
                                 });
                             }, options);
                     }

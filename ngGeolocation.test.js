@@ -119,18 +119,18 @@ describe('$geolocation', function() {
         });
 
         it('should expose the error on position if an error occurs', function() {
-            delete $window.navigator.geolocation;
-            $geolocation.watchPosition();
-            expect($geolocation.position.error.code).toBe(2);
-            expect($geolocation.position.error.message).toBe('This web browser does not support HTML5 Geolocation');
-        });
-
-        it('should expose the error on position if geolocation is unsupported', function() {
             var expected = {code: 1, message: "badger"};
             $geolocation.watchPosition();
             errorCallback(expected);
             expect($geolocation.position.error.code).toBe(expected.code);
             expect($geolocation.position.error.message).toBe(expected.message);
+        });
+
+        it('should expose the error on position if geolocation is unsupported', function() {
+            delete $window.navigator.geolocation;
+            $geolocation.watchPosition();
+            expect($geolocation.position.error.code).toBe(2);
+            expect($geolocation.position.error.message).toBe('This web browser does not support HTML5 Geolocation');
         });
 
         it('should expose the position when updated', function() {
@@ -139,6 +139,30 @@ describe('$geolocation', function() {
             successCallback(expected);
             expect($geolocation.position.coords).toBe(expected.coords);
             expect($geolocation.position.timestamp).toBe(expected.timestamp);
+        });
+
+        it('should broadcast \'$geolocation.position.changed\' when updated', function() {
+            var expected = {
+                result: {coords: 'badger', timestamp: 'goat'},
+                callback: function() {}
+            };
+            spyOn(expected, 'callback');
+            $rootScope.$on('$geolocation.position.changed', expected.callback);
+            $geolocation.watchPosition();
+            successCallback(expected.result);
+            expect(expected.callback).toHaveBeenCalledWith(jasmine.any(Object), expected.result);
+        });
+
+        it('should broadcast \'$geolocation.position.error\' when an error occurs', function() {
+            var expected = {
+                result: {coords: 'badger', timestamp: 'goat'},
+                callback: function() {}
+            };
+            spyOn(expected, 'callback');
+            $rootScope.$on('$geolocation.position.error', expected.callback);
+            $geolocation.watchPosition();
+            errorCallback(expected.result);
+            expect(expected.callback).toHaveBeenCalledWith(jasmine.any(Object), expected.result);
         });
     });
 
