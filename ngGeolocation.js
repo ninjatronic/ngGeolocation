@@ -38,13 +38,17 @@ angular
                         this.watchId = $window.navigator.geolocation.watchPosition(
                             function(position) {
                                 $rootScope.$apply(function() {
-                                    retVal.position = position;
+                                    retVal.position.coords = position.coords;
+                                    retVal.position.timestamp = position.timestamp;
+                                    delete retVal.position.error;
                                     $rootScope.$broadcast('$geolocation.position.changed', position);
                                 });
                             },
                             function(error) {
                                 $rootScope.$apply(function() {
-                                    retVal.position = {error: error};
+                                    retVal.position.error = error;
+                                    delete retVal.position.coords;
+                                    delete retVal.position.timestamp;
                                     $rootScope.$broadcast('$geolocation.position.error', error);
                                 });
                             }, options);
@@ -66,7 +70,7 @@ angular
                 }
             },
 
-            position: undefined
+            position: {}
         };
 
         return retVal;
