@@ -2,76 +2,75 @@
 
 angular
     .module('ngGeolocation', [])
-    .factory('$geolocation', ['$rootScope', '$window', '$q', function($rootScope, $window, $q) {
-
-        function supported() {
-            return 'geolocation' in $window.navigator;
-        }
-
-        var retVal = {
-            getCurrentPosition: function(options) {
-                var deferred = $q.defer();
-                if(supported()) {
-                    $window.navigator.geolocation.getCurrentPosition(
-                        function(position) {
-                            $rootScope.$apply(function() {
-                                deferred.resolve(position);
-                            });
-                        },
-                        function(error) {
-                            $rootScope.$apply(function() {
-                                deferred.reject({error: error});
-                            });
-                        }, options);
-                } else {
-                    deferred.reject({error: {
+    .factory('$geolocation', ['$rootScope','$window','$q',
+                      function($rootScope,  $window,  $q)
+    {
+        if (!$window.navigator || !$window.navigator.geolocation) {
+            return {
+                supported: false,
+                getCurrentPosition: function() {
+                    var deferred = $q.defer();
+                    deferred.reject(this.position);
+                    return deferred.promise;
+                },
+                watchPosition: angular.noop,
+                clearWatch: angular.noop,
+                position: {
+                    error: {
                         code: 2,
                         message: 'This web browser does not support HTML5 Geolocation'
-                    }});
+                    }
                 }
+            };
+        }
+
+        var watchId = null;
+        var retVal = {
+            supported: true,
+
+            getCurrentPosition: function(options) {
+                var deferred = $q.defer();
+                $window.navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        angular.copy(position, retVal.position);
+                        deferred.resolve(position);
+                    },
+                    function(error) {
+                        deferred.reject({error: error});
+                    }, options);
                 return deferred.promise;
             },
 
             watchPosition: function(options) {
-                if(supported()) {
-                    if(!this.watchId) {
-                        this.watchId = $window.navigator.geolocation.watchPosition(
-                            function(position) {
-                                $rootScope.$apply(function() {
-                                    retVal.position.coords = position.coords;
-                                    retVal.position.timestamp = position.timestamp;
-                                    delete retVal.position.error;
-                                    $rootScope.$broadcast('$geolocation.position.changed', position);
-                                });
-                            },
-                            function(error) {
-                                $rootScope.$apply(function() {
-                                    retVal.position.error = error;
-                                    delete retVal.position.coords;
-                                    delete retVal.position.timestamp;
-                                    $rootScope.$broadcast('$geolocation.position.error', error);
-                                });
-                            }, options);
-                    }
-                } else {
-                    retVal.position = {
-                        error: {
-                            code: 2,
-                            message: 'This web browser does not support HTML5 Geolocation'
-                        }
-                    };
+                if (watchId) {
+                    return false;
                 }
+
+                watchId = $window.navigator.geolocation.watchPosition(
+                    function(position) {
+                        $rootScope.$apply(function() {
+                            angular.copy(position, retVal.position);
+                            $rootScope.$broadcast('$geolocation.position.changed', position);
+                        });
+                    },
+                    function(error) {
+                        $rootScope.$apply(function() {
+                            angular.copy({error: error}, retVal.position);
+                            $rootScope.$broadcast('$geolocation.position.error', error);
+                        });
+                    }, options);
+
+                return true;
             },
 
             clearWatch: function() {
-                if(this.watchId) {
-                    $window.navigator.geolocation.clearWatch(this.watchId);
-                    delete this.watchId;
+                if (watchId) {
+                    $window.navigator.geolocation.clearWatch(watchId);
+                    watchId = null;
                 }
             },
 
             position: {}
         };
-
         return retVal;
     }]);
