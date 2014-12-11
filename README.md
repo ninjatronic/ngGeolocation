@@ -80,6 +80,34 @@ angular
     }]);
 ```
 
+### Usage with `angular-google-maps`
+
+Here's an example from [@markmcdonald51](https://github.com/markmcdonald51) for using ngGeolocation with [angular-google-maps](https://angular-ui.github.io/angular-google-maps/)...
+
+```javascript
+angular
+.module('MyApp', ['ngGeolocation', 'google-maps'])
+.controller('geolocCtrl', ['$geolocation', '$scope', function($geolocation, $scope) {
+
+  $geolocation.watchPosition({
+    timeout: 60000,
+    maximumAge: 250,
+    enableHighAccuracy: true
+  })
+
+  $scope.$watch('myPosition.coords', function (newValue, oldValue) {
+    $scope.map = {
+      center: {
+        latitude: newValue.latitude,
+        longitude: newValue.longitude
+      },
+      zoom: 16
+    };                      
+  }, true);
+
+});
+```
+
 ## Development
 
 This project uses Grunt for tooling. The toolbelt dependencies are managed by NPM and the production code dependencies are managed by Bower. Fork the code and clone it into your workspace, then...
