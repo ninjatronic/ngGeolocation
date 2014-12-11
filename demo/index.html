@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>ngGeolocation</title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js"></script>
+  <script src="./ngGeolocation.js"></script>
+  <script src="./app.js"></script>
+</head>
+<body ng-app="geolocationDemo">
+  <div ng-controller="AppController">
+    <h1>Basic (fetch once)</h1>
+    Latitude: {{location.coords.latitude}}
+    <br />
+    Longitude: {{location.coords.longitude}}
+    <br />
+    Timestamp: {{location.timestamp}}
+    <h1>Advanced (fetch once)</h1>
+    Latitude: {{$geolocation.position.coords.latitude}}
+    <br />
+    Longitude: {{$geolocation.position.coords.longitude}}
+    <br />
+    Timestamp: {{$geolocation.position.timestamp}}
+  </div>
+</body>
+</html>
