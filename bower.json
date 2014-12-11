@@ -1,6 +1,8 @@
 {
     "name": "ngGeolocation",
-    "version": "0.0.4",
+    "version": "0.0.5",
+    "author": "Ninjatronic",
+    "description": "AngularJS support for HTML5 Geolocation",
     "main": [
         "ngGeolocation.js",
         "ngGeolocation.min.js"
@@ -19,5 +21,15 @@
         "ngGeolocation.test.js",
         "package.json",
         ".travis.yml"
-    ]
+    ],
+    "contributors": [
+        {
+            "name": "Pete Martin",
+            "email": "pete@ninjatronic.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ninjatronic/ngGeolocation.git"
+    },
 }
