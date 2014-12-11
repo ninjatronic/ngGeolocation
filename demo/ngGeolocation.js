@@ -15,8 +15,8 @@ angular
                     $window.navigator.geolocation.getCurrentPosition(
                         function(position) {
                             $rootScope.$apply(function() {
-+                               retVal.position.coords = position.coords;
-+                               retVal.position.timestamp = position.timestamp;
+                                retVal.position.coords = position.coords;
+                                retVal.position.timestamp = position.timestamp;
                                 deferred.resolve(position);
                             });
                         },
