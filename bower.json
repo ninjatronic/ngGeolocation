@@ -3,10 +3,7 @@
   "version": "0.0.6",
   "author": "Ninjatronic",
   "description": "AngularJS support for HTML5 Geolocation",
-  "main": [
-    "ngGeolocation.js",
-    "ngGeolocation.min.js"
-  ],
+  "main": "ngGeolocation.js",
   "ignore": [
     "bower_components/",
     "Gruntfile.js",
