@@ -1,5 +1,7 @@
 {
   "name":"ngGeolocation",
+  "version": "0.0.7",
+  "author": "Ninjatronic",
   "devDependencies": {
     "bower": "~1.3.2",
     "grunt": "~0.4.4",
