@@ -1,4 +1,5 @@
 {
+  "name":"ngGeolocation",
   "devDependencies": {
     "bower": "~1.3.2",
     "grunt": "~0.4.4",
