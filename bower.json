@@ -3,7 +3,8 @@
   "version": "0.0.8",
   "author": "Ninjatronic",
   "description": "AngularJS support for HTML5 Geolocation",
-  "main": "ngGeolocation.js",
+  "license": "MIT",
+  "main": "ngGeolocation.min.js",
   "ignore": [
     "bower_components/",
     "Gruntfile.js",
