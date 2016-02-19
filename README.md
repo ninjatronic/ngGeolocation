@@ -62,9 +62,9 @@ angular
     }]);
 ```
 
-The `$geolocation` service can expose a property `location` whose value reflects the current position. To enable this feature a watch must be created using `watchPosition`. This method takes a `PositionOptions` object in the same manner as `getCurrentPosition`. There is no return value.
+The `$geolocation` service can expose a property `position` whose value reflects the current position. To enable this feature a watch must be created using `watchPosition`. This method takes a `PositionOptions` object in the same manner as `getCurrentPosition`. There is no return value.
 
-While this watch is active the value of the property `location` is periodically updated with the latest geolocation result. If an error has occurred the code and message are available via `$geolocation.position.error`.
+While this watch is active the value of the property `position` is periodically updated with the latest geolocation result. If an error has occurred the code and message are available via `$geolocation.position.error`.
 
 The current watch can be cancelled using `clearWatch`.
 
@@ -79,12 +79,16 @@ angular
         });
         $scope.myCoords = $geolocation.position.coords; // this is regularly updated
         $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
+        $scope.$on('$geolocation.position.changed', function(event, newPosition) {
+            console.log(newPosition); //This is the current position
+            console.log($geolocation.position); //This is also the current position
+        })        
     }]);
 ```
 
 ### Usage with `angular-google-maps`
 
-Here's an example from [@markmcdonald51](https://github.com/markmcdonald51) for using ngGeolocation with [angular-google-maps](https://angular-ui.github.io/angular-google-maps/)...
+Here's an example from [@markmcdonald51](https://github.com/markmcdonald51) for using ngGeolocation with [angular-google-maps](https://angular-ui.github.io/angular-google-maps/).
 
 ```javascript
 angular
@@ -95,17 +99,15 @@ angular
     timeout: 60000,
     maximumAge: 250,
     enableHighAccuracy: true
-  })
+  });
 
-  $scope.$watch('myPosition.coords', function (newValue, oldValue) {
-    $scope.map = {
-      center: {
-        latitude: newValue.latitude,
-        longitude: newValue.longitude
-      },
-      zoom: 16
-    };                      
-  }, true);
+  $scope.$on('$geolocation.position.changed', function(event, newPosition) {
+      $scope.map.center = {
+          latitude: newPosition.coords.latitude,
+          longitude: newPosition.coords.longitude
+      };
+      $scope.map.zoom = 17;
+  });
 
 });
 ```
