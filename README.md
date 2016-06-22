@@ -77,8 +77,13 @@ angular
             maximumAge: 250,
             enableHighAccuracy: true
         });
-        $scope.myCoords = $geolocation.position.coords; // this is regularly updated
-        $scope.myError = $geolocation.position.error; // this becomes truthy, and has 'code' and 'message' if an error occurs
+        $scope.myPosition = $geolocation.position; // this object updates regularly, it has 'error' property which is a 'truthy' and also 'code' and 'message' property if an error occurs
+        
+        //It has all the location data 
+        '$scope.myPosition.coords'
+        
+        //It's truthy and gets defined when error occurs 
+        '$scope.myPosition.error'
     }]);
 ```
 
