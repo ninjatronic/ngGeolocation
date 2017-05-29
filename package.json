@@ -19,7 +19,6 @@
     "phantomjs-polyfill": "0.0.2"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install --dev",
     "test": "./node_modules/.bin/grunt test"
   }
 }
